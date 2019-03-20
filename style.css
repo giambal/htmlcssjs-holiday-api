@@ -1,0 +1,19 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+.main-container{
+  width: 100vw;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #dadada;
+}
+
+.calendar-container,
+.header{
+  margin-top: 50px;
+}
