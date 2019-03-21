@@ -76,6 +76,8 @@ function calendar(month,year) {
   }
 }
 
+// ---- FUNZIONE PER IL RICHIAMO DELL'AJAX ----
+
 function getHolidays(month,year) {
 
   var holidays={
@@ -108,6 +110,8 @@ function getHolidays(month,year) {
 
 }
 
+// ---- FUNZIONE CHE TRASFORMA LA DATA IN QUELLA DELL'AJAX ----
+
 function getMachineDate(month,year,day) {
 
   var mom=moment();
@@ -120,6 +124,8 @@ function getMachineDate(month,year,day) {
   var machine=mom.format("YYYY-MM-DD");
   return machine;
 }
+
+// ---- FUNZIONE CHE PRENDE IL RISULTATO DELL'AJAX ----
 
 function ajaxRes(holidays) {
 
@@ -135,6 +141,47 @@ function ajaxRes(holidays) {
 
 }
 
+// ---- FUNZIONE PER AVANZAMENTO MESE ----
+
+function nextMonth(month,year) {
+
+  month++;
+  removeMonth();
+  title(month,year);
+
+  calendar(month,year);
+
+  getHolidays(month,year);
+  return month;
+}
+
+// ---- FUNZIONE PER MESE PRECENTE ----
+
+function prevMonth(month,year) {
+
+  month-- ;
+  removeMonth();
+  title(month,year);
+
+  calendar(month,year);
+
+  getHolidays(month,year);
+  return month;
+}
+
+// ---- FUNZIONE PER PIALLARE IL MESE ----
+
+function removeMonth() {
+
+  var title=$("#title");
+  title.text(" ");
+
+  var box=$(".box");
+  box.remove();
+}
+
+
+
 function init() {
 
   var year=2018;
@@ -145,6 +192,20 @@ function init() {
   calendar(month,year);
 
   getHolidays(month,year);
+
+  $(".fa-backward").click(function () {
+    if (month>0) {
+
+      month=prevMonth(month,year);
+    }
+  })
+
+  $(".fa-forward").click(function () {
+    if (month<11) {
+
+      month=nextMonth(month,year);
+    }
+  })
 }
 
 $(document).ready(init);

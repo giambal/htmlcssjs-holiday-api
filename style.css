@@ -18,6 +18,12 @@
   margin-top: 50px;
 }
 
+.header{
+  display: flex;
+  justify-content: space-around;
+
+}
+
 #daylist div{
   width: 100px;
   height: 100px;
@@ -26,7 +32,7 @@
 
 #daylist{
   display: flex;
-  width:1020px;
+  width:1042px;
   flex-wrap: wrap;
 }
 
@@ -35,8 +41,11 @@
   text-align: center;
   align-items: center;
   padding: 3px;
+  margin:2px;
+  border-radius: 3px;
 }
 
 .red{
   background-color :rgba(250,0,0,0.5);
+  color: white;
 }
