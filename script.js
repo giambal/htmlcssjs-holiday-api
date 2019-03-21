@@ -67,7 +67,8 @@ function calendar(month,year) {
 
     var tempDate={
 
-      date: getDay(month,year,day)
+      date: getDay(month,year,day),
+      machineDate:getMachineDate(month,year,day)
     };
 
     var finalHTML=compiled(tempDate);
@@ -81,32 +82,58 @@ function getHolidays(month,year) {
 
   var holidays={
 
-    anno:year,
-    mese:month
+    month:month,
+    year:year
 
-  }
+  };
 
   $.ajax({
 
-    url: "https://flynn.boolean.careers/exercises/api/holidays",
-    method: "GET",
-    data: holidays,
-    success: function(data,state){
+    url : "https://flynn.boolean.careers/exercises/api/holidays",
+    method : "GET",
+    data : holidays,
+    success : function(data,state) {
 
-      if(data.success){
+      if (data.success) {
+
         ajaxRes(data.response);
-        console.log(data.response);
+        console.log(holidays);
       }
+    },
+    error : function(request, state, error) {
 
-    } ,
-    error: function(error,state,request){
-
+      console.log("request", request);
+      console.log("state", state);
+      console.log("error", error);
     }
   });
 
 }
 
+function getMachineDate(month,year,day) {
+
+  var mom=moment();
+  mom.month(month);
+  mom.year(year);
+  mom.date(day);
+
+  var dayCount=mom.daysInMonth();
+
+  var machine=mom.format("YYYY-MM-DD");
+  return machine;
+}
+
 function ajaxRes(holidays) {
+
+  for (var i = 0; i < holidays.length; i++) {
+    var holiday=holidays[i];
+    var holidayName=holidays.name;
+    var holidayDate=holidays.date;
+
+    var thisHoliday = $("div[data-date='" + holidayDate + "']");
+
+    thisHoliday.addClass("red").text(thisHoliday.text() + " " + holidayName);
+  }
 
 }
 
