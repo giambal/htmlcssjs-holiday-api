@@ -45,7 +45,7 @@ function getDay(month,year,day) {
 
   var dayCount=mom.daysInMonth();
 
-  var date=mom.format("DD-MMMM-YYYY");
+  var date=mom.format("DD-MMMM-dddd YYYY");
   return date;
 }
 
@@ -75,8 +75,6 @@ function calendar(month,year) {
     calendarList.append(finalHTML);
   }
 }
-
-
 
 function getHolidays(month,year) {
 
@@ -127,8 +125,8 @@ function ajaxRes(holidays) {
 
   for (var i = 0; i < holidays.length; i++) {
     var holiday=holidays[i];
-    var holidayName=holidays.name;
-    var holidayDate=holidays.date;
+    var holidayName=holiday.name;
+    var holidayDate=holiday.date;
 
     var thisHoliday = $("div[data-date='" + holidayDate + "']");
 
