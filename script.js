@@ -56,7 +56,7 @@ function calendar(month,year) {
   var dayCount=daysCount(month,year);
   var calendarList=$("#daylist");
 
-  var template=$("#li-template").html();
+  var template=$("#day-template").html();
   var compiled= Handlebars.compile(template);
 
   var mom=moment();
@@ -75,6 +75,41 @@ function calendar(month,year) {
   }
 }
 
+
+
+function getHolidays(month,year) {
+
+  var holidays={
+
+    anno:year,
+    mese:month
+
+  }
+
+  $.ajax({
+
+    url: "https://flynn.boolean.careers/exercises/api/holidays",
+    method: "GET",
+    data: holidays,
+    success: function(data,state){
+
+      if(data.success){
+        ajaxRes(data.response);
+        console.log(data.response);
+      }
+
+    } ,
+    error: function(error,state,request){
+
+    }
+  });
+
+}
+
+function ajaxRes(holidays) {
+
+}
+
 function init() {
 
   var year=2018;
@@ -83,6 +118,8 @@ function init() {
   title(month,year);
 
   calendar(month,year);
+
+  getHolidays(month,year);
 }
 
 $(document).ready(init);
